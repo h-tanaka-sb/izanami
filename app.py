@@ -5509,14 +5509,6 @@ def main():
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
     except Exception:
         pass
-    # ── 起動時認証（move認証システム）──────────────────────────────
-    # result=ok の時だけ本体を起動する（expired/busy/denied/通信失敗は起動しない）
-    import auth_gate
-    auth = auth_gate.run_gate()
-    if not auth:
-        return
-    auth_session = auth.get("session") or ""
-    auth_gate.start_heartbeat(auth_session)
     root = tk.Tk()
     try:
         import tkinter.font as tkfont
@@ -5552,12 +5544,7 @@ def main():
         root.after(500, lambda: root.attributes("-topmost", False))
     except Exception:
         pass
-    # お知らせ・更新通知・起動時ページは本体ウィンドウを親に表示（ログイン画面では出さない）
-    auth_gate.show_post_login(auth, root)
-    try:
-        root.mainloop()
-    finally:
-        auth_gate.end_ping(auth_session)  # 稼働終了の記録（×終了・例外どちらでも）
+    root.mainloop()
 
 
 if __name__ == "__main__":
