@@ -1,0 +1,37 @@
+[project]
+name = "izanagi"
+version = "0.1.0"
+description = "IZANAGI - 台本→音声→映像→合成(テロップ/BGM)→保存→YouTube予約投稿 を一気通貫で行うAI動画生成ツール"
+requires-python = ">=3.12"
+dependencies = [
+    # 台本生成（①）
+    "anthropic>=0.40",
+    # 画像生成（③/⑤ API版）
+    "openai>=1.40",
+    "google-genai>=0.3",
+    # ナレーションTTS（② Google Cloud TTS, timepoint対応の v1beta1 含む）
+    "google-cloud-texttospeech>=2.16",
+    # YouTube 予約投稿（⑥）
+    "google-api-python-client>=2.100",
+    "google-auth-oauthlib>=1.2",
+    "google-auth-httplib2>=0.2",
+    # Web自動操作（②AIスタジオ/③Flow/Sora/Gemini/⑥Studio・claude.ai/ChatGPT）
+    "playwright>=1.45",
+    # whisper強制アライン（Chirp3-HD等 timepoint非対応の声のテロップ同期）
+    "faster-whisper>=1.0",
+    # 無料TTS（Microsoft Edge・キー/課金不要）
+    "edge-tts>=6.1",
+    # 画像処理・GUI・ffmpeg探索の保険
+    "pillow>=10.0",
+    # テロップフォントのグリフ欠落検査（毛筆等の収録不足→歯抜け防止・2026-08-19）
+    "fonttools>=4.50",
+    "sv-ttk>=2.6",
+    "imageio-ffmpeg>=0.6.0",
+    "youtube-transcript-api>=1.2.4",
+    "certifi>=2026.6.17",
+    "pykakasi>=2.3.0",
+    "httpx>=0.28.1",
+]
+
+[tool.uv]
+package = false
